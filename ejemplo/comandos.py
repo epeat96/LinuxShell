@@ -1,11 +1,12 @@
 from cmd import Cmd
 
 class MyPrompt(Cmd):
-   def do_exit(self, inp):
+    def do_hola(self, inp):
+            print("holamundo")
+    def do_exit(self, inp):
         print("Bye")
         return True
-
-   def do_add(self, inp):
+    def do_add(self, inp):
         print("Adding '{}'".format(inp))
 
 MyPrompt().cmdloop()
