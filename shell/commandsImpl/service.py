@@ -7,10 +7,12 @@ import shutil
         o false si la cantidad no es valida
 '''
 def lenctrl(tokens,cantidad):
-    if len(tokens)>cantidad: # Si se introdujeron mas de <cantidad> parametros
+    # Si se introdujeron mas de <cantidad> parametros
+    if len(tokens)>cantidad:
         print("Se introdujeron mas parametros de los aceptados")
         return False
-    elif len(tokens)<cantidad: #Si se introdujeron menos de <cantidad> parametros
+    #Si se introdujeron menos de <cantidad> parametros
+    elif len(tokens)<cantidad:
         print("Muy pocos parametros ingresados")
         return False
     return True
