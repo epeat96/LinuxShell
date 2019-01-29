@@ -16,7 +16,7 @@ class MyPrompt(Cmd):
             for x in range(2, len(tokens)):
                 print(tokens[x])
         else:
-            copiar.copiar(tokens[0],tokens[1])
+            service.copiar(tokens[0],tokens[1])
 '''
     Funcion mover
         Recibe como paramtetros las rutas de un archivo a mover y la ruta donde este sera movido, tambien se puede usar
