@@ -3,12 +3,14 @@ import os
 import optparse
 from helpImpl import myHelp
 from commandsImpl import service
+
 class MyPrompt(Cmd):
     def help_copiar(self):
         myHelp.copiar()
-''' Funcion copiar
-        Recibe como parametros las rutas de un archivo a copiar y la ruta donde este sera copiado
-'''
+    '''
+    Funcion copiar
+    Recibe como parametros las rutas de un archivo a copiar y la ruta donde este sera copiado
+    '''
     def do_copiar(self, inp):
         tokens = inp.split()
         if len(tokens)>2:
@@ -17,11 +19,11 @@ class MyPrompt(Cmd):
                 print(tokens[x])
         else:
             service.copiar(tokens[0],tokens[1])
-'''
+    '''
     Funcion mover
-        Recibe como paramtetros las rutas de un archivo a mover y la ruta donde este sera movido, tambien se puede usar
-        para renombrar archivos
-'''
+    Recibe como paramtetros las rutas de un archivo a mover y la ruta donde este sera movido, tambien se puede usar
+    para renombrar archivos
+    '''
     def do_mover(self, inp):
         tokens = inp.split()
         if len(tokens)>2:
