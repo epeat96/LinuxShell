@@ -29,7 +29,7 @@ class MyPrompt(Cmd):
             for x in range(2, len(tokens)):
                 print(tokens[x])
         else:
-            serice.copiar(tokens[0],tokens[1])
+            service.copiar(tokens[0],tokens[1])
             os.remove(tokens[0])
 #+++++++++++++++++++++++++++++++++++++++
     def do_hola(self, inp):
