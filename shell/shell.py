@@ -16,7 +16,7 @@ class MyPrompt(Cmd):
     def do_copiar(self, inp):
         tokens = inp.split()
         #si la cantidad de parametros es correcta
-        if service.lenctrl(tokens):
+        if service.lenctrl(tokens,2):
             #se intenta copiar
             service.copiar(tokens[0],tokens[1])
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -28,7 +28,7 @@ class MyPrompt(Cmd):
     def do_mover(self, inp):
         tokens = inp.split()
         #si la cantidad de parametros es correcta
-        if service.lenctrl(tokens):
+        if service.lenctrl(tokens,2):
             #si se pudo copiar
             if service.copiar(tokens[0],tokens[1]) == 0:
                 shutil.rmtree(tokens[0])

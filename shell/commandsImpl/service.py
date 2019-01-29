@@ -1,14 +1,25 @@
 import os
 import shutil
-def lenctrl(tokens):
-    if len(tokens)>2: # Si se introdujeron mas de 2 parametros
+'''
+    Funcion lenctrl
+        Esta funcion recibe como parametro una lista con los parametros parseados recibidos a travez del prompt
+        de la shell , la cantidad de parametros que son validos y retorna true si la cantidad de parametros es valida
+        o false si la cantidad no es valida
+'''
+def lenctrl(tokens,cantidad):
+    if len(tokens)>cantidad: # Si se introdujeron mas de <cantidad> parametros
         print("Se introdujeron mas parametros de los aceptados")
         return False
-    elif len(tokens)<2:
+    elif len(tokens)<cantidad: #Si se introdujeron menos de <cantidad> parametros
         print("Muy pocos parametros ingresados")
         return False
     return True
-
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+'''
+    Funcion copiar
+        Recibe como parametros un archivo y una ruta o un directorio y una ruta y copia el arvhico/directorios
+        a en la ruta b
+'''
 def copiar(a,b):
     #Si a existe y si b no existe
     if os.path.exists(a) and not os.path.exists(b):
