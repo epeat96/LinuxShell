@@ -9,12 +9,13 @@ class MyPrompt(Cmd):
     doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help: <comando>"
     misc_header="Documentacion de ayuda miscelanea"
     undoc_header="Los siguientes comandos no estan documentados:"
-    prompt="#"
+    prompt="#: "
+    intro="Para instrucciones ejecute: help"
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def help_cp(self):
         myHelp.copiar()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    def help_mover(self):
+    def help_mv(self):
         myHelp.mover()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
