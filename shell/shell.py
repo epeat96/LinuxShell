@@ -6,7 +6,7 @@ from helpImpl import myHelp
 from commandsImpl import service
 class MyPrompt(Cmd):
     ruler='+'
-    doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help: <comando>"
+    doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help <comando>"
     misc_header="Documentacion de ayuda miscelanea"
     undoc_header="Los siguientes comandos no estan documentados:"
     prompt="#: "
@@ -17,6 +17,21 @@ class MyPrompt(Cmd):
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def help_mv(self):
         myHelp.mover()
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    '''
+        Funcion clear
+        Hace una llamada al sistema para limpiar la pantalla
+    '''
+    def do_clear(self,inp):
+        os.system('clear')
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    '''
+        Funcion EOF
+        Al llamar a esta funcion se deja de ejecutar la shell y retorna True
+    '''
+    def do_EOF(self,inp):
+        print("\nAdios\n")
+        return True
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
     Funcion cp
@@ -48,6 +63,30 @@ class MyPrompt(Cmd):
     '''
     def do_rn(self, inp):
         tokens = inp.split()
+        #si la cantidad de parametros es correcta
+        if service.lenctrl(tokens,2):
+            service.rn(tokens)
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    '''
+    Funcion chmod
+    Recibe como parametros la ruta de un archivo, un numero en octal entre 000 y 777
+    y un parametro que puede ser "-r" y cambia los permisos del archivo, directorio, o arbol
+    de directorios dependiendo de si se paso el parametro -r o no
+    '''
+    def do_chmod(self,inp):
+        tokens = inp.split()
+        #si la cantidad de parametros es correcta
+        if len(tokens)==3 :
+            service.chmod(tokens)
+        elif service.lenctrl(tokens,2):
+            service.chmod(tokens)
 
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_mkdir(self,inp):
+        tokens = inp.split()
+        if service.lenctrl(tokens,1):
+            service.mkdir(tokens[0])
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#loop principal de la shell
 MyPrompt().cmdloop()
-print("after")

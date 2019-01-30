@@ -1,5 +1,56 @@
 import os
 import shutil
+def rn(tokens):
+    try:
+        os.rename(tokens[0],tokens[1])
+    except IOError:
+        print("La ruta no es valida")
+        return 1
+    return 0
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def chmod(tokens):
+    try :
+        a=int(tokens[1],8)
+    except :
+        print("Por favor ingrese un numero en octal entre 000 y 777")
+        return 1
+
+    if os.path.exists(tokens[0]):
+        os.chmod(tokens[0],a)
+    else :
+        print("Ruta invalida")
+        return 1
+    if len(tokens)==3 and tokens[2] =="-r":
+        if 0o000 <= a <= 0o777 :
+            if os.path.exists(tokens[0]) :
+                for root, dirs, files in os.walk(tokens[0]):
+                    for d in dirs:
+                        os.chmod(os.path.join(root, d), a)
+                    for f in files:
+                        os.chmod(os.path.join(root, f), a)
+                return 0
+            else :
+                print("Ruta invalida")
+                return 1
+        else:
+            print("Por favor ingrese un numero en octal entre 000 y 777")
+            return 1
+    elif len(tokens) == 3:
+        printf("No se reconoce el parametro: "+tokens[2])
+    return 0
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+'''
+    Funcion mkdir
+        Crea el directorio o jerarquia de directorios cuyo path es pasado como parametro
+'''
+def mkdir(tokens):
+    #Intenta crear la jerarquia o el directorio
+    try:
+        os.makedirs(tokens)
+    #mensaje de error en caso de que no se pueda
+    except IOError:
+        print(tokens+" ya existe o no es una ruta valida")
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 '''
     Funcion lenctrl
         Esta funcion recibe como parametro una lista con los parametros parseados recibidos a travez del prompt
