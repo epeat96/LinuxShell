@@ -4,6 +4,7 @@ import optparse
 import shutil
 from helpImpl import myHelp
 from commandsImpl import service
+import subprocess as sub
 class MyPrompt(Cmd):
     ruler='+'
     doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help <comando>"
@@ -83,10 +84,25 @@ class MyPrompt(Cmd):
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    '''
+
+    '''
     def do_mkdir(self,inp):
         tokens = inp.split()
         if service.lenctrl(tokens,1):
             service.mkdir(tokens[0])
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_salir(self,inp):
+        print("Adios")
+        return True;
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def emptyline(self):
+        pass
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def default(self,inp):
+        try:
+            sub.run(inp)
+        except:
+            print("No se conoce el comando: "+inp)
 #loop principal de la shell
 MyPrompt().cmdloop()

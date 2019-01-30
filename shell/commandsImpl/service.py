@@ -1,5 +1,6 @@
 import os
 import shutil
+
 def rn(tokens):
     try:
         os.rename(tokens[0],tokens[1])
@@ -8,21 +9,34 @@ def rn(tokens):
         return 1
     return 0
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+'''
+    Recibe como parametro un string que contiene una ruta, un string representando un numero
+    octal entre 000 y 777 y posiblemente un parametro que debe ser "-r" y retorna 0 si se pudo
+    cambiar o 0 si hubo error
+'''
 def chmod(tokens):
+    #intenta castear el string a un numero octal
     try :
         a=int(tokens[1],8)
     except :
+        #mensaje de error si no se puede
         print("Por favor ingrese un numero en octal entre 000 y 777")
         return 1
-
+    #si la ruta es valida
     if os.path.exists(tokens[0]):
+        #cambiar permisos al archivo o directorio raiz
         os.chmod(tokens[0],a)
     else :
+        #mensaje de error si la ruta es invalida
         print("Ruta invalida")
         return 1
+    #se verifica si existe el 3er parametro y de ser asi se ve si es "-r"
     if len(tokens)==3 and tokens[2] =="-r":
+        #se verifica que el numero en octal este en rango
         if 0o000 <= a <= 0o777 :
+            #Si ruta es valida
             if os.path.exists(tokens[0]) :
+                #se cambian de forma recurisva los directorios y archivos de la carpeta raiz
                 for root, dirs, files in os.walk(tokens[0]):
                     for d in dirs:
                         os.chmod(os.path.join(root, d), a)
@@ -30,12 +44,15 @@ def chmod(tokens):
                         os.chmod(os.path.join(root, f), a)
                 return 0
             else :
+                #mensaje si la ruta no es valida
                 print("Ruta invalida")
                 return 1
         else:
+            #mensaje de error si el numero no esta en rango, o lo que se paso no es un numero
             print("Por favor ingrese un numero en octal entre 000 y 777")
             return 1
     elif len(tokens) == 3:
+        #mensaje de error si el 3er parametro de chmod no es "-r"
         printf("No se reconoce el parametro: "+tokens[2])
     return 0
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
