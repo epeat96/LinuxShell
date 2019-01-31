@@ -5,7 +5,7 @@ def ls(tokens):
     if os.path.isdir(tokens[0]):
         b=os.listdir(tokens[0])
         for a in b:
-            print(a)
+            print(a,end=" ")
         return 0
     else :
         print("La ruta no es valida")

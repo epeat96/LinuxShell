@@ -12,6 +12,7 @@ class MyPrompt(Cmd):
     undoc_header="Los siguientes comandos no estan documentados:"
     prompt="#: "
     intro="Para instrucciones ejecute: help"
+    os.system("clear")
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def help_cp(self):
         myHelp.copiar()
@@ -19,22 +20,22 @@ class MyPrompt(Cmd):
     def help_mv(self):
         myHelp.mover()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_passwd(self,inp):
+        tokens = inp.split()
+        #si la cantidad de parametros es correcta
+        if service.lenctrl(tokens,1):
+            os.system("passwd "+inp)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def do_ls(self,inp):
         if inp == "":
             b=os.listdir(os.getcwd())
             for a in b:
-                print(a)
+                print(a,end=" ")
+            print("")
         else:
             tokens = inp.split()
             if service.lenctrl(tokens,1):
                 service.ls(tokens)
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    '''
-        Funcion clear
-        Hace una llamada al sistema para limpiar la pantalla
-    '''
-    def do_clear(self,inp):
-        os.system('clear')
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
         Funcion EOF
@@ -72,7 +73,7 @@ class MyPrompt(Cmd):
     Funcion renombrar
     Recibe com parametros la ruta de un archivo y el nombre con el cual este se quiere do_renombrar
     '''
-    def do_rn(self, inp):
+    def do_renombrar(self, inp):
         tokens = inp.split()
         #si la cantidad de parametros es correcta
         if service.lenctrl(tokens,2):
