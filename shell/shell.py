@@ -19,6 +19,16 @@ class MyPrompt(Cmd):
     def help_mv(self):
         myHelp.mover()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_ls(self,inp):
+        if inp == "":
+            b=os.listdir(os.getcwd())
+            for a in b:
+                print(a)
+        else:
+            tokens = inp.split()
+            if service.lenctrl(tokens,1):
+                service.ls(tokens)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
         Funcion clear
         Hace una llamada al sistema para limpiar la pantalla
@@ -85,7 +95,8 @@ class MyPrompt(Cmd):
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
-
+    Funcion mkdir
+    Recibe como parametro una ruta y crea un directorio
     '''
     def do_mkdir(self,inp):
         tokens = inp.split()
@@ -101,7 +112,7 @@ class MyPrompt(Cmd):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def default(self,inp):
         try:
-            sub.run(inp)
+            sub.run(inp,shell=True,executable="/bin/bash")
         except:
             print("No se conoce el comando: "+inp)
 #loop principal de la shell

@@ -1,6 +1,20 @@
 import os
 import shutil
 
+def ls(tokens):
+    if os.path.isdir(tokens[0]):
+        b=os.listdir(tokens[0])
+        for a in b:
+            print(a)
+        return 0
+    else :
+        print("La ruta no es valida")
+        return 1
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+'''
+    Recibe como paratetro una ruta y cambia de nombre el archivo/directorio
+    OBS: si la ruta para renombrar ya existe rn sobreescribe el archivo, directorio
+'''
 def rn(tokens):
     try:
         os.rename(tokens[0],tokens[1])
