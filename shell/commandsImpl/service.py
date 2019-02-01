@@ -1,6 +1,37 @@
 import os
 import shutil
-
+def cd(tokens):
+    pass
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def chown(tokens):
+    #si la ruta es valida
+    if os.path.exists(tokens[0]):
+        #cambiar permisos al archivo o directorio raiz
+        shutil.chown(tokens[0],tokens[1],tokens[2])
+    else :
+        #mensaje de error si la ruta es invalida
+        print("Ruta invalida")
+        return 1
+    #se verifica si existe el 3er parametro y de ser asi se ve si es "-r"
+    if len(tokens)==4 and tokens[3] =="-r":
+            #Si ruta es valida
+        if os.path.exists(tokens[0]) :
+            #se cambian de forma recurisva los directorios y archivos de la carpeta raiz
+            for root, dirs, files in os.walk(tokens[0]):
+                for d in dirs:
+                    shutil.chown(os.path.join(root, d),tokens[1],tokens[2])
+                for f in files:
+                    shutil.chown(os.path.join(root, f),tokens[1],tokens[2])
+            return 0
+        else :
+            #mensaje si la ruta no es valida
+            print("Ruta invalida")
+            return 1
+    elif len(tokens) == 4:
+        #mensaje de error si el 3er parametro de chmod no es "-r"
+        printf("No se reconoce el parametro: "+tokens[3])
+    return 0
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def ls(tokens):
     if os.path.isdir(tokens[0]):
         b=os.listdir(tokens[0])

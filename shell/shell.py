@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from cmd import Cmd
 import os
 import optparse
@@ -13,6 +14,15 @@ class MyPrompt(Cmd):
     prompt="#: "
     intro="Para instrucciones ejecute: help"
     os.system("clear")
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_cd(self,inp):
+        inp = inp.split()
+        #si la cantidad de parametros es correcta
+        if service.lenctrl(inp,1):
+            try:
+                os.execl("/bin/.LinuxShell/shellshell.py", "sub.run(\"pushd \"+inp[0]+\">/dev/null;\"+\"exec /bin/.LinuxShell/shell/shell.py;\"+\"dirs -c\",shell=True,executable=\"/bin/bash\")")
+            except:
+                print("Error: Ruta invalida")
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     def help_cp(self):
         myHelp.copiar()
@@ -36,6 +46,13 @@ class MyPrompt(Cmd):
             tokens = inp.split()
             if service.lenctrl(tokens,1):
                 service.ls(tokens)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    def do_chown(self,inp):
+        tokens = inp.split()
+        if len(tokens)==4 :
+            service.chown(tokens)
+        elif service.lenctrl(tokens,3):
+            service.chown(tokens)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     '''
         Funcion EOF
