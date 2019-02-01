@@ -1,7 +1,10 @@
 import os
 import shutil
 def cd(tokens):
-    pass
+	try:
+		os.chdir(tokens[0])
+	except:
+		print("Error: Ruta invalida")
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def chown(tokens):
     #si la ruta es valida
