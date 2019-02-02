@@ -6,6 +6,7 @@ import shutil
 from helpImpl import myHelp
 from commandsImpl import service
 import subprocess as sub
+import pwd
 class MyPrompt(Cmd):
 	ruler='+'
 	doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help <comando>"
@@ -14,6 +15,19 @@ class MyPrompt(Cmd):
 	prompt="#: "
 	intro="Para instrucciones ejecute: help"
 	os.system("clear")
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	def do_ftp(self,inp):
+		inp = inp.split()
+		#si la cantidad de parametros es correcta
+		if service.lenctrl(inp,3):
+			os.system("ftp ",inp)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	def do_useradd(self,inp):
+		inp = inp.split()
+		#si la cantidad de parametros es correcta
+		if service.lenctrl(inp,3):
+			service.useradd(inp)
+
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def do_cd(self,inp):
 		inp = inp.split()
