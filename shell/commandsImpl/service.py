@@ -29,23 +29,6 @@ def useradd(inp):
 	except:
 		pass
 
-	fecha=inp[1]
-	if "/" not in fecha and "-" not in fecha:
-		print("Por favor introduzca la fecha en el formato: hh/mm-hh/mm")
-		return 1
-
-	if len(fecha) != 11:
-		print("Por favor introduzca la fecha en el formato: hh/mm-hh/mm")
-		return 1
-
-	ip=inp[2]
-	if "." not in ip:
-		print("Por favor introduzca una ip valida")
-		return 1
-	if len(ip)!=15:
-		print("Por favor introduzca una ip valida")
-		return 1
-
 	try:
 		sub.run("useradd" +" -c "+"\"hh/mm-hh/mm= "+inp[1]+" ip ="+inp[2]+"\" "+ inp[0],shell=True,executable="/bin/bash")
 	except:

@@ -8,6 +8,7 @@ from commandsImpl import service
 import subprocess as sub
 import pwd
 from ftplib import FTP
+import getpass
 class MyPrompt(Cmd):
 	ruler='+'
 	doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help <comando>"
@@ -16,18 +17,32 @@ class MyPrompt(Cmd):
 	prompt="#: "
 	intro="Para instrucciones ejecute: help"
 	os.system("clear")
+	def help_cp(self):
+		myHelp.cp()
+	def help_mv(self):
+		myHelp.mv()
+	def help_useradd(self):
+		myHelp.useradd()
+	def help_mkdir(self):
+		myHelp.mkdir()
+	def help_cd(self):
+		myHelp.cd()
+	def help_chmod(self):
+		myHelp.chmod()
+	def help_chown(self):
+		myHelp.chown()
+	def help_ls(self):
+		myHelp.ls()
+	def help_renombrar(self):
+		myHelp.renombrar()
+	def help_passwd(self):
+		myHelp.passwd()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def do_service(self,inp):
 		inp = inp.split()
 		#si la cantidad de parametros es correcta
 		if service.lenctrl(inp,2):
 			service.daemontools(inp)
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	def help_cp(self):
-		myHelp.copiar()
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	def help_mv(self):
-		myHelp.mover()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def do_ftp(self,inp):
 		service.shenlong("ftp",inp)
@@ -66,7 +81,7 @@ class MyPrompt(Cmd):
 			os.system("passwd "+inp)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	'''
-	Recibe como paramtero una ruta, o se puede utilizar sin parametros
+	Recibe como parametro una ruta, o se puede utilizar sin parametros
 	si recibe una ruta lista los directorios y archivos presentes en esa rutas
 	si no rebe una ruta lista los directorios y archivos del directorio actual
 	'''
@@ -83,8 +98,8 @@ class MyPrompt(Cmd):
 				service.ls(tokens)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	'''
-	Recibe como parameros una ruta, un nombre de usuario y un nombre de grupo
-	y cambia de duenho y de grupo el archivo o directorio del la ruta, se puede pasar
+	Recibe como parametros una ruta, un nombre de usuario y un nombre de grupo
+	y cambia de duenho y de grupo el archivo o directorio de la ruta, se puede pasar
 	la opcion "-r" para que sea recursivo
 	'''
 	def do_chown(self,inp):
