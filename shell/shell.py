@@ -7,6 +7,7 @@ from helpImpl import myHelp
 from commandsImpl import service
 import subprocess as sub
 import pwd
+from ftplib import FTP
 class MyPrompt(Cmd):
 	ruler='+'
 	doc_header="Los siguientes comandos estan documentados, para verlos ejecute: help <comando>"
@@ -16,24 +17,11 @@ class MyPrompt(Cmd):
 	intro="Para instrucciones ejecute: help"
 	os.system("clear")
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	def do_ftp(self,inp):
+	def do_service(self,inp):
 		inp = inp.split()
 		#si la cantidad de parametros es correcta
-		if service.lenctrl(inp,3):
-			os.system("ftp ",inp)
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	def do_useradd(self,inp):
-		inp = inp.split()
-		#si la cantidad de parametros es correcta
-		if service.lenctrl(inp,3):
-			service.useradd(inp)
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	def do_cd(self,inp):
-		inp = inp.split()
-		#si la cantidad de parametros es correcta
-		if service.lenctrl(inp,1):
-			service.cd(inp)
+		if service.lenctrl(inp,2):
+			service.daemontools(inp)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def help_cp(self):
 		myHelp.copiar()
@@ -41,13 +29,49 @@ class MyPrompt(Cmd):
 	def help_mv(self):
 		myHelp.mover()
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	def do_ftp(self,inp):
+		service.shenlong("ftp",inp)
+		inp = inp.split()
+		#si la cantidad de parametros es correcta
+		if service.lenctrl(inp,1):
+			pass
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'''
+	'''
+	def do_useradd(self,inp):
+		service.shenlong("useradd",inp)
+		inp = inp.split()
+		#si la cantidad de parametros es correcta
+		if service.lenctrl(inp,3):
+			service.useradd(inp)
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'''
+	'''
+	def do_cd(self,inp):
+		service.shenlong("cd",inp)
+		inp = inp.split()
+		#si la cantidad de parametros es correcta
+		if service.lenctrl(inp,1):
+			service.cd(inp)
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'''
+	Recibe como parametro un usuario y luego pide cambiar la contrasenha de ese usuario
+	'''
 	def do_passwd(self,inp):
+		service.shenlong("passwd",inp)
 		tokens = inp.split()
 		#si la cantidad de parametros es correcta
 		if service.lenctrl(tokens,1):
 			os.system("passwd "+inp)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'''
+	Recibe como paramtero una ruta, o se puede utilizar sin parametros
+	si recibe una ruta lista los directorios y archivos presentes en esa rutas
+	si no rebe una ruta lista los directorios y archivos del directorio actual
+	'''
 	def do_ls(self,inp):
+		service.shenlong("ls",inp)
 		if inp == "":
 			b=os.listdir(os.getcwd())
 			for a in b:
@@ -58,7 +82,13 @@ class MyPrompt(Cmd):
 			if service.lenctrl(tokens,1):
 				service.ls(tokens)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	'''
+	Recibe como parameros una ruta, un nombre de usuario y un nombre de grupo
+	y cambia de duenho y de grupo el archivo o directorio del la ruta, se puede pasar
+	la opcion "-r" para que sea recursivo
+	'''
 	def do_chown(self,inp):
+		service.shenlong("chown",inp)
 		tokens = inp.split()
 		if len(tokens)==4 :
 			service.chown(tokens)
@@ -78,6 +108,7 @@ class MyPrompt(Cmd):
 	Recibe como parametros las rutas de un archivo a copiar y la ruta donde este sera copiado
 	'''
 	def do_cp(self, inp):
+		service.shenlong("cp",inp)
 		tokens = inp.split()
 		#si la cantidad de parametros es correcta
 		if service.lenctrl(tokens,2):
@@ -90,6 +121,7 @@ class MyPrompt(Cmd):
 	para renombrar archivos
 	'''
 	def do_mv(self, inp):
+		service.shenlong("mv",inp)
 		tokens = inp.split()
 		#si la cantidad de parametros es correcta
 		if service.lenctrl(tokens,2):
@@ -102,6 +134,7 @@ class MyPrompt(Cmd):
 	Recibe com parametros la ruta de un archivo y el nombre con el cual este se quiere do_renombrar
 	'''
 	def do_renombrar(self, inp):
+		service.shenlong("renombrar",inp)
 		tokens = inp.split()
 		#si la cantidad de parametros es correcta
 		if service.lenctrl(tokens,2):
@@ -114,6 +147,7 @@ class MyPrompt(Cmd):
 	de directorios dependiendo de si se paso el parametro -r o no
 	'''
 	def do_chmod(self,inp):
+		service.shenlong("chmod",inp)
 		tokens = inp.split()
 		#si la cantidad de parametros es correcta
 		if len(tokens)==3 :
@@ -128,11 +162,13 @@ class MyPrompt(Cmd):
 	Recibe como parametro una ruta y crea un directorio
 	'''
 	def do_mkdir(self,inp):
+		service.shenlong("mkdir",inp)
 		tokens = inp.split()
 		if service.lenctrl(tokens,1):
 			service.mkdir(tokens[0])
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def do_salir(self,inp):
+		service.shenlong("salir",inp)
 		print("Adios")
 		return True;
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -140,6 +176,7 @@ class MyPrompt(Cmd):
 		pass
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	def default(self,inp):
+		service.shenlong("default",inp)
 		try:
 			sub.run(inp,shell=True,executable="/bin/bash")
 		except :

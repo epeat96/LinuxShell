@@ -2,6 +2,24 @@ import os
 import shutil
 import pwd
 import subprocess as sub
+import time
+import getpass
+def daemontools(inp):
+	newpid=os.fork()
+	if newpid==0:
+		os.execl("/bin/python"," /home/daemons/daemon.py")
+	else:
+		print("auxiliomedesmayoxdxd")
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def shenlong(cmd,inp):
+	 try:
+		 a = open("/var/log/lfsshell.log","a")
+		 hora=time.strftime("%y-%m-%d %H:%M:%S")
+		 a.write("[date:] "+hora+" [cmd:] "+cmd+" "+inp+" [user:] "+getpass.getuser()+"\n")
+		 a.close()
+	 except:
+	 	print("Error")
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def useradd(inp):
 
 	try:
